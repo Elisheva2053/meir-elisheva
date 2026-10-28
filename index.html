@@ -1,0 +1,1139 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#f6efe5" />
+  <title>מאיר ואלישבע — ספירת הגומר</title>
+  <style>
+    :root {
+      --cream: #fffaf2;
+      --warm-white: #fffdf9;
+      --champagne: #e6c778;
+      --gold: #c59a37;
+      --deep-gold: #8b6422;
+      --rose: #dca7ad;
+      --blush: #f4dfe0;
+      --text: #5a4327;
+      --shadow: rgba(91, 62, 26, .22);
+      --glass: rgba(255,255,255,.20);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body { min-height: 100%; }
+
+    body {
+      margin: 0;
+      overflow: hidden;
+      color: var(--text);
+      font-family: "Segoe UI", Arial, sans-serif;
+      background:
+        radial-gradient(circle at 50% 16%, rgba(255,255,255,.95) 0 10%, transparent 36%),
+        radial-gradient(circle at 16% 24%, rgba(244,223,224,.72), transparent 28%),
+        radial-gradient(circle at 84% 32%, rgba(230,199,120,.30), transparent 32%),
+        linear-gradient(145deg, #fffdf9 0%, #f8efe4 46%, #f0dfd7 100%);
+      perspective: 1200px;
+      user-select: none;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      opacity: .28;
+      pointer-events: none;
+      background-image:
+        linear-gradient(115deg, transparent 0 48%, rgba(255,255,255,.55) 49%, transparent 50%),
+        radial-gradient(circle, rgba(197,154,55,.25) 0 1px, transparent 1.8px);
+      background-size: 180px 180px, 28px 28px;
+      mix-blend-mode: soft-light;
+    }
+
+    .page {
+      position: relative;
+      width: 100vw;
+      height: 100dvh;
+      min-height: 620px;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      align-items: center;
+      justify-items: center;
+      padding: clamp(18px, 3vw, 40px);
+      isolation: isolate;
+    }
+
+    .top {
+      text-align: center;
+      z-index: 20;
+      animation: fadeDown 1s cubic-bezier(.2,.8,.2,1) both;
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      font-size: clamp(12px, 1.4vw, 18px);
+      letter-spacing: .22em;
+      color: var(--deep-gold);
+      font-weight: 650;
+    }
+
+    .names {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(38px, 6vw, 82px);
+      line-height: .95;
+      font-weight: 500;
+      color: transparent;
+      background: linear-gradient(115deg, #8a6425 8%, #d8b95f 34%, #fff0ab 49%, #b18328 63%, #7b581f 90%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      filter: drop-shadow(0 3px 2px rgba(255,255,255,.9)) drop-shadow(0 8px 13px rgba(110,77,23,.16));
+    }
+
+    .date {
+      margin: 10px 0 0;
+      font-size: clamp(15px, 1.7vw, 23px);
+      font-weight: 600;
+      color: #8a6a42;
+    }
+
+    .scene {
+      position: relative;
+      width: min(92vw, 800px);
+      height: min(70vh, 720px);
+      min-height: 410px;
+      display: grid;
+      place-items: center;
+      transform-style: preserve-3d;
+      z-index: 3;
+    }
+
+    .globe-wrap {
+      position: relative;
+      width: min(68vh, 560px, 84vw);
+      aspect-ratio: 1;
+      transform-style: preserve-3d;
+      cursor: pointer;
+      transition: transform .28s ease;
+      outline: none;
+      -webkit-tap-highlight-color: transparent;
+      z-index: 3;
+    }
+
+    .globe-wrap:focus-visible {
+      filter: drop-shadow(0 0 18px rgba(197,154,55,.8));
+    }
+
+    .globe-wrap:hover { transform: translateY(-4px) scale(1.012); }
+    .globe-wrap:active { transform: translateY(-1px) scale(1.004); }
+
+    .sphere {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.05) 0%, rgba(255,255,255,.02) 47%, rgba(255,247,237,.18) 66%, rgba(95,61,24,.20) 100%),
+        #efe3d7;
+      border: 3px solid rgba(255,255,255,.86);
+      box-shadow:
+        inset 12px 6px 24px rgba(255,255,255,.16),
+        inset -16px -12px 24px rgba(80,48,18,.10),
+        inset 0 0 0 6px rgba(255,255,255,.06),
+        0 30px 55px rgba(91,60,25,.22),
+        0 0 0 10px rgba(255,255,255,.40),
+        0 0 0 13px rgba(211,175,102,.18);
+      transform: translateZ(35px);
+    }
+
+
+    .photo-stack {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      overflow: hidden;
+      border-radius: 50%;
+      background: #efe3d7;
+    }
+
+    .photo-slide {
+      position: absolute;
+      inset: -1px;
+      opacity: 0;
+      background-image:
+        linear-gradient(180deg, rgba(255,255,255,.03) 0%, rgba(255,255,255,.01) 48%, rgba(255,247,237,.14) 70%, rgba(95,61,24,.16) 100%),
+        var(--photo);
+      background-size: cover;
+      background-position: var(--position, center 20%);
+      background-repeat: no-repeat;
+      transform: scale(1.085);
+      transition:
+        opacity 1.45s ease-in-out,
+        transform 7.2s cubic-bezier(.2,.72,.2,1);
+      will-change: opacity, transform;
+    }
+
+    .photo-slide.active {
+      opacity: 1;
+      transform: scale(1.025);
+    }
+
+    .sphere::before {
+      content: "";
+      position: absolute;
+      inset: 3.5%;
+      border-radius: 50%;
+      background:
+        linear-gradient(120deg, rgba(255,255,255,.48), transparent 17% 74%, rgba(255,255,255,.14)),
+        radial-gradient(ellipse at 24% 20%, rgba(255,255,255,.78) 0 3%, transparent 17%);
+      opacity: .26;
+      pointer-events: none;
+      z-index: 15;
+    }
+
+    .sphere::after {
+      content: "";
+      position: absolute;
+      left: 6%;
+      right: 6%;
+      bottom: -2%;
+      height: 20%;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(255,255,255,.92), rgba(255,247,233,.76) 44%, rgba(225,190,126,.10) 72%, transparent 78%);
+      box-shadow: 0 -6px 16px rgba(255,255,255,.22);
+      z-index: 4;
+    }
+
+    .inner-scene {
+      position: absolute;
+      inset: 0;
+      z-index: 6;
+      display: grid;
+      place-items: center;
+      transform-style: preserve-3d;
+    }
+
+    .monogram {
+      position: absolute;
+      left: 50%;
+      bottom: 10.5%;
+      width: 72%;
+      transform: translateX(-50%) translateZ(60px);
+      text-align: center;
+      padding: 0;
+      background: none;
+      border: none;
+      box-shadow: none;
+      backdrop-filter: none;
+      text-shadow: 0 2px 0 rgba(255,255,255,.98), 0 6px 14px rgba(89,54,18,.18), 0 0 20px rgba(255,255,255,.34);
+      z-index: 12;
+    }
+
+    .monogram::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -8%;
+      width: 108%;
+      height: 118%;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: radial-gradient(ellipse at center, rgba(255,250,243,.82) 0 34%, rgba(255,248,238,.46) 50%, rgba(255,255,255,0) 76%);
+      filter: blur(10px);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .small-line {
+      font-size: clamp(13px, 1.8vw, 18px);
+      letter-spacing: .24em;
+      color: #96703a;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+    .days-line {
+      display: grid;
+      justify-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+
+    .days-label {
+      font-size: clamp(20px, 2.8vw, 29px);
+      font-weight: 700;
+      color: #83602f;
+      margin-top: 2px;
+    }
+
+    .globe-date {
+      margin-top: 7px;
+      display: grid;
+      gap: 4px;
+      justify-items: center;
+      font-size: clamp(12px, 1.65vw, 17px);
+      line-height: 1.2;
+      color: #8b6a3f;
+      font-weight: 600;
+      text-shadow: 0 1px 0 rgba(255,255,255,.92);
+    }
+
+    .globe-date .hebrew-date {
+      font-size: clamp(13px, 1.8vw, 18px);
+      color: #7e5b2b;
+      font-weight: 700;
+    }
+
+    .days-number {
+      display: inline-block;
+      min-width: 1.3em;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(52px, 8.8vw, 88px);
+      line-height: .8;
+      font-weight: 700;
+      color: transparent;
+      background: linear-gradient(135deg, #8f641d 0%, #d4ad48 35%, #fff2b2 52%, #b78122 75%, #704a15 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      filter: drop-shadow(0 3px 1px rgba(255,255,255,.95)) drop-shadow(0 8px 10px rgba(84,55,15,.20));
+      transition: filter .22s ease;
+      transform-origin: center center;
+      will-change: transform, filter;
+    }
+
+    .days-number.pop {
+      animation: daysPop 1.15s cubic-bezier(.18,.88,.2,1);
+      transform-origin: center center;
+    }
+
+
+    .magic-halo {
+      position: absolute;
+      inset: 15%;
+      border-radius: 50%;
+      z-index: 8;
+      pointer-events: none;
+      opacity: 0;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(255,248,219,.65) 0 12%, rgba(255,230,167,.28) 28%, rgba(255,206,222,.20) 46%, transparent 70%),
+        conic-gradient(from 0deg, rgba(255,255,255,0) 0 12%, rgba(255,240,199,.72) 18%, rgba(240,190,204,.55) 26%, rgba(255,255,255,0) 38%, rgba(255,233,173,.68) 50%, rgba(255,255,255,0) 64%, rgba(244,212,222,.56) 76%, rgba(255,255,255,0) 100%);
+      filter: blur(1px);
+      transform: scale(.7) rotate(0deg);
+    }
+
+    .message {
+      position: absolute;
+      top: 12%;
+      left: 50%;
+      width: 78%;
+      text-align: center;
+      z-index: 16;
+      color: #765126;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(20px, 3.1vw, 34px);
+      line-height: 1.15;
+      font-weight: 700;
+      padding: 0;
+      background: none;
+      border: none;
+      box-shadow: none;
+      backdrop-filter: none;
+      opacity: 0;
+      transform: translate(-50%, -7px) scale(.97);
+      transition: opacity .45s ease, transform .45s ease;
+      text-shadow:
+        0 2px 0 rgba(255,255,255,.98),
+        0 0 8px rgba(255,255,255,.98),
+        0 0 18px rgba(255,248,232,.92),
+        0 5px 12px rgba(80,48,18,.20);
+      pointer-events: none;
+    }
+
+    .message.show { opacity: 1; transform: translate(-50%, 0) scale(1); }
+
+
+
+    .snow-layer, .burst-layer {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .snowflake {
+      position: absolute;
+      top: -10%;
+      border-radius: 50%;
+      background: rgba(255,255,255,.96);
+      box-shadow: 0 0 6px rgba(255,255,255,.95);
+      animation: snowFall linear infinite;
+      opacity: .85;
+    }
+
+    .glitter {
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #f1d77d;
+      box-shadow: 0 0 8px #fff3a6;
+      animation: drift ease-in-out infinite alternate;
+      opacity: .7;
+    }
+
+    .burst {
+      position: absolute;
+      left: 50%; top: 58%;
+      width: 7px; height: 11px;
+      border-radius: 50% 0 50% 0;
+      background: linear-gradient(135deg, #fff6ca, #cf9c33);
+      box-shadow: 0 0 8px rgba(255,239,152,.8);
+      transform: translate(-50%,-50%);
+      animation: burstOut 1.45s cubic-bezier(.18,.76,.25,1) forwards;
+    }
+
+    .sparkle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 50;
+      width: 10px;
+      height: 10px;
+      background: #f6df8f;
+      clip-path: polygon(50% 0, 60% 39%, 100% 50%, 60% 61%, 50% 100%, 40% 61%, 0 50%, 40% 39%);
+      animation: sparkleFly .95s ease-out forwards;
+      filter: drop-shadow(0 0 5px white);
+    }
+
+    .countdown-panel {
+      width: min(1040px, 94vw);
+      display: grid;
+      grid-template-columns: repeat(6, minmax(72px, 1fr));
+      gap: clamp(6px, 1.4vw, 16px);
+      z-index: 25;
+      animation: fadeUp 1s .25s cubic-bezier(.2,.8,.2,1) both;
+    }
+
+    .time-card {
+      position: relative;
+      min-height: 75px;
+      padding: 10px 7px 9px;
+      text-align: center;
+      border: 1px solid rgba(197,154,55,.27);
+      border-radius: 18px;
+      background: linear-gradient(145deg, rgba(255,255,255,.68), rgba(255,248,235,.42));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 10px 23px rgba(86,59,28,.10);
+      backdrop-filter: blur(10px);
+      overflow: hidden;
+    }
+
+    .time-card::after {
+      content: "";
+      position: absolute;
+      top: 0; left: -50%;
+      width: 45%; height: 100%;
+      transform: skewX(-22deg);
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.65), transparent);
+      animation: sheen 7s linear infinite;
+    }
+
+    .time-value {
+      display: block;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(24px, 3.4vw, 40px);
+      line-height: 1;
+      font-weight: 700;
+      color: #9a7029;
+      text-shadow: 0 1px 0 white;
+    }
+
+    .time-label {
+      display: block;
+      margin-top: 5px;
+      font-size: clamp(10px, 1.2vw, 14px);
+      font-weight: 700;
+      color: #7b664d;
+    }
+
+    .hint {
+      position: absolute;
+      left: 50%;
+      bottom: 4%;
+      transform: translateX(-50%);
+      z-index: 30;
+      padding: 7px 13px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.62);
+      border: 1px solid rgba(197,154,55,.24);
+      color: #8b652f;
+      font-size: clamp(11px, 1.4vw, 15px);
+      font-weight: 700;
+      box-shadow: 0 7px 15px rgba(89,58,25,.08);
+      animation: hintPulse 2s infinite;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .petal {
+      position: fixed;
+      top: -12vh;
+      z-index: 2;
+      width: 14px;
+      height: 21px;
+      border-radius: 75% 10% 75% 10%;
+      background: linear-gradient(145deg, rgba(255,255,255,.9), rgba(225,174,180,.66));
+      opacity: .46;
+      animation: petalFall linear infinite;
+      pointer-events: none;
+    }
+
+    .finished .days-number { font-size: clamp(42px, 8vw, 76px); }
+
+
+    .controls {
+      position: absolute;
+      right: max(10px, 2vw);
+      bottom: max(102px, 10.5vh);
+      z-index: 40;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+
+
+    .now-playing {
+      max-width: min(360px, 70vw);
+      align-self: center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.66);
+      border: 1px solid rgba(197,154,55,.20);
+      color: #7d603b;
+      font-size: clamp(11px, 1.15vw, 13px);
+      font-weight: 650;
+      line-height: 1.25;
+      text-align: center;
+      box-shadow: 0 8px 18px rgba(86,59,28,.08);
+      backdrop-filter: blur(8px);
+    }
+
+    .control-btn {
+      appearance: none;
+      border: 1px solid rgba(197,154,55,.24);
+      border-radius: 999px;
+      background: linear-gradient(145deg, rgba(255,255,255,.82), rgba(255,247,235,.56));
+      color: #7f5d31;
+      font: inherit;
+      font-size: clamp(12px, 1.3vw, 15px);
+      font-weight: 700;
+      padding: 11px 16px;
+      box-shadow: 0 10px 22px rgba(86,59,28,.10), inset 0 1px 0 rgba(255,255,255,.95);
+      cursor: pointer;
+      transition: transform .22s ease, box-shadow .22s ease, filter .22s ease;
+      backdrop-filter: blur(8px);
+    }
+
+    .control-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 28px rgba(86,59,28,.12), inset 0 1px 0 rgba(255,255,255,.95);
+      filter: brightness(1.03);
+    }
+
+    .control-btn:active {
+      transform: translateY(0);
+    }
+
+    .control-btn.playing {
+      background: linear-gradient(145deg, rgba(255,248,228,.95), rgba(247,228,201,.72));
+      border-color: rgba(197,154,55,.34);
+      color: #6f4e1f;
+    }
+
+    .control-btn:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+      transform: none;
+      filter: none;
+    }
+
+
+    .globe-wrap.magic .sphere {
+      animation: sphereGlow 1.15s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .globe-wrap.magic .magic-halo {
+      animation: haloSpin 1.35s cubic-bezier(.18,.76,.25,1) forwards;
+    }
+
+    .globe-wrap.magic .snow-layer {
+      animation: snowSwirl 1.05s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .monogram.flash::before {
+      animation: monogramGlow 1.1s ease-out;
+    }
+
+
+    @keyframes fadeDown { from {opacity:0; transform:translateY(-20px)} to {opacity:1; transform:none} }
+    @keyframes fadeUp { from {opacity:0; transform:translateY(20px)} to {opacity:1; transform:none} }
+    @keyframes snowFall {
+      0% { transform: translate3d(0, -20px, 0) rotate(0deg); }
+      55% { transform: translate3d(var(--drift), 58vh, 0) rotate(190deg); }
+      100% { transform: translate3d(calc(var(--drift) * -.3), 105vh, 0) rotate(360deg); }
+    }
+    @keyframes drift { from { transform: translate(-5px,-4px) scale(.7); } to { transform: translate(8px,9px) scale(1.25); } }
+    @keyframes burstOut {
+      0% { opacity: 0; transform: translate(-50%,-50%) scale(.2) rotate(0); }
+      12% { opacity: 1; }
+      100% { opacity: 0; transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(1.15) rotate(var(--r)); }
+    }
+    @keyframes sparkleFly {
+      from { opacity:1; transform: translate(-50%,-50%) scale(.4) rotate(0); }
+      to { opacity:0; transform: translate(calc(-50% + var(--sx)), calc(-50% + var(--sy))) scale(1.25) rotate(270deg); }
+    }
+
+    @keyframes sphereGlow {
+      0% { filter: brightness(1) saturate(1); }
+      28% { filter: brightness(1.10) saturate(1.08) drop-shadow(0 0 10px rgba(255,246,204,.65)); }
+      62% { filter: brightness(1.18) saturate(1.12) drop-shadow(0 0 22px rgba(255,226,163,.72)); }
+      100% { filter: brightness(1) saturate(1); }
+    }
+    @keyframes haloSpin {
+      0% { opacity: 0; transform: scale(.7) rotate(0deg); }
+      18% { opacity: .85; }
+      70% { opacity: .45; }
+      100% { opacity: 0; transform: scale(1.18) rotate(220deg); }
+    }
+    @keyframes snowSwirl {
+      0% { transform: scale(1) rotate(0deg); filter: brightness(1); }
+      40% { transform: scale(1.03) rotate(6deg); filter: brightness(1.08); }
+      70% { transform: scale(1.05) rotate(-7deg); filter: brightness(1.12); }
+      100% { transform: scale(1) rotate(0deg); filter: brightness(1); }
+    }
+
+    @keyframes monogramGlow {
+      0% { filter: blur(10px); opacity: .9; }
+      50% { filter: blur(14px); opacity: 1; }
+      100% { filter: blur(10px); opacity: .9; }
+    }
+
+    @keyframes daysPop {
+      0% {
+        transform: scale(1);
+        filter: drop-shadow(0 3px 1px rgba(255,255,255,.95)) drop-shadow(0 8px 10px rgba(84,55,15,.20));
+      }
+      18% {
+        transform: scale(1.18);
+        filter: drop-shadow(0 0 8px rgba(255,243,197,.95)) drop-shadow(0 0 16px rgba(236,196,82,.85)) drop-shadow(0 14px 16px rgba(84,55,15,.22));
+      }
+      42% {
+        transform: scale(1.52);
+        filter: drop-shadow(0 0 12px rgba(255,249,220,.98)) drop-shadow(0 0 26px rgba(240,203,95,.95)) drop-shadow(0 0 40px rgba(235,190,65,.75)) drop-shadow(0 18px 18px rgba(84,55,15,.25));
+      }
+      68% {
+        transform: scale(1.26);
+        filter: drop-shadow(0 0 9px rgba(255,245,210,.96)) drop-shadow(0 0 18px rgba(236,196,82,.86)) drop-shadow(0 12px 15px rgba(84,55,15,.22));
+      }
+      100% {
+        transform: scale(1);
+        filter: drop-shadow(0 3px 1px rgba(255,255,255,.95)) drop-shadow(0 8px 10px rgba(84,55,15,.20));
+      }
+    }
+
+    @keyframes sheen { 0%,65% { left:-55%; } 88%,100% { left:130%; } }
+    @keyframes hintPulse { 50% { transform: translateX(-50%) translateY(-3px); box-shadow: 0 10px 22px rgba(89,58,25,.14); } }
+    @keyframes petalFall {
+      to { transform: translate3d(var(--wind), 118vh, 0) rotate(540deg); }
+    }
+
+    @media (max-width: 720px) {
+      .page { padding: 14px 10px 12px; grid-template-rows: auto 1fr auto; }
+      .scene { width: 100%; min-height: 390px; height: 63vh; }
+      .globe-wrap { width: min(59vh, 90vw); }
+      .monogram { width: 78%; bottom: 11%; }
+      .message { top: 11%; width: 82%; }
+      .countdown-panel { grid-template-columns: repeat(3, 1fr); gap: 7px; }
+      .time-card { min-height: 62px; padding: 8px 5px 7px; border-radius: 14px; }
+      .hint { bottom: 3%; }
+      .eyebrow { letter-spacing: .14em; }
+
+      .controls {
+        right: 50%;
+        transform: translateX(50%);
+        width: calc(100% - 20px);
+        bottom: 150px;
+        align-items: center;
+      }
+      .now-playing { order: 2; max-width: 62vw; padding: 7px 10px; }
+    }
+
+    @media (max-height: 720px) and (min-width: 721px) {
+      .page { min-height: 560px; padding-block: 12px; }
+      .scene { height: 60vh; min-height: 365px; }
+      .globe-wrap { width: min(60vh, 500px, 66vw); }
+      .monogram { width: 74%; bottom: 10%; }
+      .message { top: 10%; }
+      .hint { bottom: 2%; }
+      .countdown-panel { max-width: 900px; }
+      .time-card { min-height: 62px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page" id="page">
+    <header class="top">
+      <h1 class="names">Meir &amp; Elisheva</h1>
+    </header>
+
+    <section class="scene" id="scene" aria-label="כדור שלג אינטראקטיבי">
+      <div class="globe-wrap" id="globe" tabindex="0" role="button" aria-label="לחצו על התמונה להפעלת המוזיקה ולהחלפת התמונה">
+        <div class="sphere" id="sphere">
+          <div class="photo-stack" id="photoStack" aria-hidden="true"></div>
+          <div class="inner-scene">
+            <div class="message show" id="message" aria-live="polite">בניין עדי עד</div>
+            <div class="monogram">
+              <div class="small-line">עוֹד</div>
+              <div class="days-line">
+                <span class="days-number" id="totalDays">—</span>
+                <span class="days-label">ימים</span>
+                <div class="globe-date" aria-label="תאריך החתונה">
+                  <span class="greg-date">18.01.2027</span>
+                  <span class="hebrew-date">י׳ בשבט תשפ״ז</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="magic-halo" id="magicHalo" aria-hidden="true"></div>
+            <div class="snow-layer" id="snowLayer"></div>
+            <div class="burst-layer" id="burstLayer"></div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="countdown-panel" aria-label="ספירה לאחור לחתונה">
+      <div class="time-card"><span class="time-value" id="months">0</span><span class="time-label">חודשים</span></div>
+      <div class="time-card"><span class="time-value" id="weeks">0</span><span class="time-label">שבועות</span></div>
+      <div class="time-card"><span class="time-value" id="days">0</span><span class="time-label">ימים</span></div>
+      <div class="time-card"><span class="time-value" id="hours">00</span><span class="time-label">שעות</span></div>
+      <div class="time-card"><span class="time-value" id="minutes">00</span><span class="time-label">דקות</span></div>
+      <div class="time-card"><span class="time-value" id="seconds">00</span><span class="time-label">שניות</span></div>
+    </section>
+
+    <div class="controls" aria-label="כלי שליטה">
+      <button class="control-btn" id="musicBtn" type="button" aria-label="הפעלת המנגינה ומעבר לשיר הבא">♫ הפעלת מנגינה</button>
+      <button class="control-btn" id="pauseBtn" type="button" aria-label="עצירת המנגינה" disabled>⏸ עצירה</button>
+      <div class="now-playing" id="nowPlaying" aria-live="polite">לחצי על התמונה או על הפעלת מנגינה</div>
+    </div>
+    <audio id="weddingAudio" preload="metadata"></audio>
+  </main>
+
+  <!-- באתר: media.js נבנה אוטומטית ב-GitHub. במחשב: START.cmd מכניס את הרשימה במקום ההערה שלמטה. -->
+  <script src="media.js"></script>
+  <!--MEDIA_LIST-->
+  <script>
+    // מועד היעד: שעת החופה בישראל (18:30).
+    const TARGET = new Date('2027-01-18T18:30:00+02:00');
+
+    const el = id => document.getElementById(id);
+    const globe = el('globe');
+    const sphere = el('sphere');
+    const snowLayer = el('snowLayer');
+    const burstLayer = el('burstLayer');
+    const messageEl = el('message');
+    const page = el('page');
+    const musicBtn = el('musicBtn');
+    const pauseBtn = el('pauseBtn');
+    const weddingAudio = el('weddingAudio');
+    const nowPlaying = el('nowPlaying');
+    const photoStack = el('photoStack');
+    const media = window.MEDIA_LIST || { images: [], music: [] };
+    let photoSlides = [];
+    const totalDaysEl = el('totalDays');
+    const monogramEl = document.querySelector('.monogram');
+
+    const messages = [
+      'בניין עדי עד',
+      'בשעה טובה ומוצלחת',
+      'בית מלא שמחה',
+      'ברכה והצלחה תמיד',
+      'סייעתא דשמיא תמיד',
+      'שמחות וברכות לרוב',
+      'דרך צלחה ומבורכת'
+    ];
+    let messageIndex = 0;
+    let photoIndex = 0;
+    let slideshowTimer = null;
+    let lastTotalDays = null;
+
+    function fileTitle(path) {
+      try {
+        const name = decodeURIComponent(path.split('/').pop() || path);
+        return name.replace(/\.[^.]+$/, '');
+      } catch (_) {
+        return path.split('/').pop() || 'שיר';
+      }
+    }
+
+    function buildPhotoSlides() {
+      const images = Array.isArray(media.images) ? media.images : [];
+      photoStack.innerHTML = '';
+      images.forEach((src, index) => {
+        const slide = document.createElement('div');
+        slide.className = 'photo-slide' + (index === 0 ? ' active' : '');
+        slide.style.setProperty('--photo', `url("${String(src).replace(/"/g, '%22')}")`);
+        slide.style.setProperty('--position', '50% 20%');
+        slide.setAttribute('aria-hidden', 'true');
+        photoStack.appendChild(slide);
+      });
+      photoSlides = [...photoStack.querySelectorAll('.photo-slide')];
+      if (!photoSlides.length) {
+        photoStack.innerHTML = '<div class="photo-slide active" style="--photo: linear-gradient(145deg,#f6e7dc,#dfc079);--position:center"></div>';
+        photoSlides = [...photoStack.querySelectorAll('.photo-slide')];
+      }
+    }
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+
+    function showWish(index) {
+      messageIndex = index % messages.length;
+      messageEl.classList.remove('show');
+      window.setTimeout(() => {
+        messageEl.textContent = messages[messageIndex];
+        messageEl.classList.add('show');
+      }, 180);
+    }
+
+    function showPhoto(index, animateWish = true) {
+      if (!photoSlides.length) return;
+      photoIndex = (index + photoSlides.length) % photoSlides.length;
+      photoSlides.forEach((slide, i) => slide.classList.toggle('active', i === photoIndex));
+      if (animateWish) showWish(photoIndex);
+    }
+
+    function scheduleSlideshow() {
+      window.clearInterval(slideshowTimer);
+      slideshowTimer = window.setInterval(() => {
+        showPhoto(photoIndex + 1);
+      }, 6500);
+    }
+
+    function advancePhoto() {
+      showPhoto(photoIndex + 1);
+      scheduleSlideshow();
+    }
+
+
+    function calendarParts(now, target) {
+      if (now >= target) return { months:0, weeks:0, days:0 };
+
+      let months = (target.getFullYear() - now.getFullYear()) * 12 + (target.getMonth() - now.getMonth());
+      let anchor = new Date(now);
+      anchor.setMonth(anchor.getMonth() + months);
+      if (anchor > target) {
+        months--;
+        anchor = new Date(now);
+        anchor.setMonth(anchor.getMonth() + months);
+      }
+
+      const remainingDays = Math.max(0, Math.floor((target - anchor) / 86400000));
+      return {
+        months,
+        weeks: Math.floor(remainingDays / 7),
+        days: remainingDays % 7
+      };
+    }
+
+    function updateCountdown() {
+      const now = new Date();
+      let diff = TARGET - now;
+
+      if (diff <= 0) {
+        ['months','weeks','days'].forEach(id => el(id).textContent = '0');
+        ['hours','minutes','seconds'].forEach(id => el(id).textContent = '00');
+        el('totalDays').textContent = 'היום!';
+        el('totalDays').parentElement.querySelector('.days-label').textContent = '';
+        page.classList.add('finished');
+        messageEl.textContent = 'היום הגדול הגיע — מזל טוב למאיר ואלישבע! ✨';
+        messageEl.classList.add('show');
+        return;
+      }
+
+      const totalSeconds = Math.floor(diff / 1000);
+      const totalDays = Math.ceil(diff / 86400000);
+      const hours = Math.floor((totalSeconds % 86400) / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+      const parts = calendarParts(now, TARGET);
+
+      el('months').textContent = parts.months;
+      el('weeks').textContent = parts.weeks;
+      el('days').textContent = parts.days;
+      el('hours').textContent = pad(hours);
+      el('minutes').textContent = pad(minutes);
+      el('seconds').textContent = pad(seconds);
+      el('totalDays').textContent = totalDays;
+
+      if (lastTotalDays !== totalDays) {
+        lastTotalDays = totalDays;
+        el('totalDays').animate([
+          { transform:'scale(.82)', opacity:.25 },
+          { transform:'scale(1.08)', opacity:1, offset:.6 },
+          { transform:'scale(1)', opacity:1 }
+        ], { duration:700, easing:'cubic-bezier(.2,.8,.2,1)' });
+      }
+    }
+
+    function makeSnow(count = 52) {
+      snowLayer.innerHTML = '';
+      for (let i = 0; i < count; i++) {
+        const f = document.createElement('i');
+        f.className = Math.random() > .78 ? 'glitter' : 'snowflake';
+        const size = 2 + Math.random() * 6;
+        f.style.left = Math.random() * 100 + '%';
+        f.style.width = size + 'px';
+        f.style.height = size + 'px';
+        f.style.animationDelay = (-Math.random() * 10) + 's';
+        f.style.animationDuration = (5 + Math.random() * 7) + 's';
+        f.style.setProperty('--drift', (-40 + Math.random() * 80) + 'px');
+        if (f.className === 'glitter') {
+          f.style.top = (12 + Math.random() * 72) + '%';
+          f.style.animationDuration = (1.6 + Math.random() * 2.6) + 's';
+        }
+        snowLayer.appendChild(f);
+      }
+    }
+
+    function burstInside(count = 42) {
+      for (let i = 0; i < count; i++) {
+        const b = document.createElement('i');
+        b.className = 'burst';
+        const angle = Math.random() * Math.PI * 2;
+        const distance = 55 + Math.random() * 145;
+        b.style.setProperty('--x', Math.cos(angle) * distance + 'px');
+        b.style.setProperty('--y', Math.sin(angle) * distance + 'px');
+        b.style.setProperty('--r', (-240 + Math.random() * 480) + 'deg');
+        b.style.animationDelay = (Math.random() * .14) + 's';
+        b.style.background = Math.random() > .48
+          ? 'linear-gradient(135deg,#fff7ca,#c7962d)'
+          : 'linear-gradient(135deg,#fff,#e6b9c1)';
+        burstLayer.appendChild(b);
+        setTimeout(() => b.remove(), 1800);
+      }
+    }
+
+    function sparkleAround(x, y, count = 18) {
+      for (let i = 0; i < count; i++) {
+        const s = document.createElement('i');
+        s.className = 'sparkle';
+        const angle = Math.random() * Math.PI * 2;
+        const distance = 35 + Math.random() * 95;
+        s.style.left = x + 'px';
+        s.style.top = y + 'px';
+        s.style.setProperty('--sx', Math.cos(angle) * distance + 'px');
+        s.style.setProperty('--sy', Math.sin(angle) * distance + 'px');
+        s.style.animationDelay = Math.random() * .08 + 's';
+        document.body.appendChild(s);
+        setTimeout(() => s.remove(), 1150);
+      }
+    }
+
+    function popDaysNumber() {
+      totalDaysEl.classList.remove('pop');
+      monogramEl.classList.remove('flash');
+      void totalDaysEl.offsetWidth;
+      totalDaysEl.classList.add('pop');
+      monogramEl.classList.add('flash');
+      setTimeout(() => {
+        totalDaysEl.classList.remove('pop');
+        monogramEl.classList.remove('flash');
+      }, 1180);
+    }
+
+    function surprise(clientX, clientY) {
+      globe.classList.remove('magic');
+      void globe.offsetWidth;
+      globe.classList.add('magic');
+      setTimeout(() => globe.classList.remove('magic'), 1380);
+
+      burstInside(34);
+      popDaysNumber();
+      const rect = sphere.getBoundingClientRect();
+      sparkleAround(
+        Number.isFinite(clientX) ? clientX : rect.left + rect.width / 2,
+        Number.isFinite(clientY) ? clientY : rect.top + rect.height / 2,
+        24
+      );
+
+      advancePhoto();
+
+      // בכל לחיצה השלג מסתחרר ומתעצם לרגע, בלי שהכדור יקפוץ.
+      const flakes = [...snowLayer.querySelectorAll('.snowflake, .glitter')];
+      flakes.forEach(f => {
+        f.style.animationDuration = (1.9 + Math.random() * 2.2) + 's';
+        f.style.animationDelay = (-Math.random() * 1.2) + 's';
+        f.style.setProperty('--drift', (-85 + Math.random() * 170) + 'px');
+      });
+      setTimeout(() => {
+        flakes.forEach(f => {
+          f.style.animationDuration = (5 + Math.random() * 7) + 's';
+          f.style.animationDelay = (-Math.random() * 8) + 's';
+          f.style.setProperty('--drift', (-40 + Math.random() * 80) + 'px');
+        });
+      }, 1550);
+    }
+
+    const tracks = (Array.isArray(media.music) ? media.music : []).map(src => ({
+      src,
+      title: fileTitle(src)
+    }));
+    let currentTrackIndex = -1;
+    let musicHasStarted = false;
+
+    function currentTrack() {
+      return currentTrackIndex >= 0 ? tracks[currentTrackIndex] : null;
+    }
+
+    function refreshMusicControls() {
+      const track = currentTrack();
+      const isPlaying = musicHasStarted && !weddingAudio.paused;
+
+      musicBtn.disabled = !tracks.length;
+      pauseBtn.disabled = !musicHasStarted || !tracks.length;
+      musicBtn.classList.toggle('playing', isPlaying);
+      pauseBtn.classList.toggle('playing', isPlaying);
+
+      musicBtn.textContent = musicHasStarted ? '♫ לשיר הבא' : '♫ הפעלת מנגינה';
+      pauseBtn.textContent = weddingAudio.paused && musicHasStarted ? '▶ המשך' : '⏸ עצירה';
+
+      if (!tracks.length) {
+        musicBtn.setAttribute('aria-label', 'לא נמצאו שירים');
+        pauseBtn.setAttribute('aria-label', 'לא נמצאו שירים');
+      } else if (!musicHasStarted) {
+        musicBtn.setAttribute('aria-label', 'הפעלת השיר הראשון');
+        pauseBtn.setAttribute('aria-label', 'עצירת המנגינה');
+      } else if (track) {
+        musicBtn.setAttribute('aria-label', `מעבר לשיר הבא. כעת ${weddingAudio.paused ? 'מושהה' : 'מתנגן'} ${track.title}`);
+        pauseBtn.setAttribute('aria-label', weddingAudio.paused ? `המשך השיר ${track.title}` : `עצירת השיר ${track.title}`);
+      }
+    }
+
+    function updateNowPlaying(prefix) {
+      const track = currentTrack();
+      if (!track) return;
+      nowPlaying.textContent = `${prefix}: ${track.title} · ${currentTrackIndex + 1}/${tracks.length}`;
+    }
+
+    function playTrack(index) {
+      if (!tracks.length) {
+        nowPlaying.textContent = 'לא נמצאו שירים בתיקיית music';
+        refreshMusicControls();
+        return;
+      }
+
+      currentTrackIndex = (index + tracks.length) % tracks.length;
+      const track = currentTrack();
+      weddingAudio.src = track.src;
+      weddingAudio.currentTime = 0;
+
+      weddingAudio.play().then(() => {
+        musicHasStarted = true;
+        updateNowPlaying('מתנגן');
+        refreshMusicControls();
+      }).catch(() => {
+        nowPlaying.textContent = 'הדפדפן חסם את ההפעלה. לחצי שוב על התמונה או על כפתור המנגינה';
+        refreshMusicControls();
+      });
+    }
+
+    function playNextTrack() {
+      playTrack(currentTrackIndex + 1);
+    }
+
+    function togglePause() {
+      if (!musicHasStarted || !tracks.length) return;
+
+      if (weddingAudio.paused) {
+        weddingAudio.play().then(() => {
+          updateNowPlaying('מתנגן');
+          refreshMusicControls();
+        }).catch(() => {
+          nowPlaying.textContent = 'לא ניתן להמשיך את השיר. לחצי שוב';
+        });
+      } else {
+        weddingAudio.pause();
+        updateNowPlaying('מושהה');
+        refreshMusicControls();
+      }
+    }
+
+    function startMusicOnFirstPhotoClick() {
+      if (!musicHasStarted && weddingAudio.paused) {
+        playTrack(0);
+      }
+    }
+
+    musicBtn.addEventListener('click', playNextTrack);
+    pauseBtn.addEventListener('click', togglePause);
+    weddingAudio.addEventListener('ended', playNextTrack);
+    weddingAudio.addEventListener('play', refreshMusicControls);
+    weddingAudio.addEventListener('pause', refreshMusicControls);
+
+    globe.addEventListener('click', e => {
+      startMusicOnFirstPhotoClick();
+      surprise(e.clientX, e.clientY);
+    });
+    globe.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        startMusicOnFirstPhotoClick();
+        surprise();
+      }
+    });
+
+    // תנועה תלת־ממדית עדינה עם העכבר.
+    document.addEventListener('pointermove', e => {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const x = (e.clientX / innerWidth - .5) * 10;
+      const y = (e.clientY / innerHeight - .5) * -8;
+      globe.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+    });
+    document.addEventListener('pointerleave', () => globe.style.transform = '');
+
+    function makePetals() {
+      for (let i = 0; i < 12; i++) {
+        const p = document.createElement('i');
+        p.className = 'petal';
+        p.style.left = Math.random() * 100 + 'vw';
+        p.style.animationDelay = (-Math.random() * 18) + 's';
+        p.style.animationDuration = (13 + Math.random() * 12) + 's';
+        p.style.setProperty('--wind', (-80 + Math.random() * 160) + 'px');
+        p.style.transform = `scale(${.55 + Math.random() * .8}) rotate(${Math.random()*180}deg)`;
+        document.body.appendChild(p);
+      }
+    }
+
+    buildPhotoSlides();
+    makeSnow();
+    makePetals();
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+    showPhoto(0, false);
+    scheduleSlideshow();
+    if (!tracks.length) nowPlaying.textContent = 'הוסיפי שירים לתיקיית music ופתחי שוב דרך START.cmd';
+    refreshMusicControls();
+
+    setTimeout(() => messageEl.classList.add('show'), 500);
+  </script>
+</body>
+</html>
