@@ -177,7 +177,14 @@
 
     .photo-slide.active {
       opacity: 1;
+      z-index: 2;
       transform: scale(1.025);
+    }
+
+    /* התמונה הקודמת נשארת מלאה מתחת עד שהחדשה נכנסת, כדי שלא יבצבץ רקע לבן באמצע המעבר */
+    .photo-slide.leaving {
+      opacity: 1;
+      z-index: 1;
     }
 
     .sphere::before {
@@ -794,6 +801,13 @@
         slide.style.setProperty('--position', '50% 20%');
         slide.setAttribute('aria-hidden', 'true');
         photoStack.appendChild(slide);
+        // טוענים מראש. תמונה שעוד לא ירדה לא תוצג, כדי שלא יופיע ריק
+        const probe = new Image();
+        const markReady = () => { slide.dataset.ready = '1'; };
+        probe.onload = markReady;
+        probe.onerror = () => { slide.dataset.failed = '1'; };
+        probe.src = src;
+        if (probe.complete && probe.naturalWidth) markReady();
       });
       photoSlides = [...photoStack.querySelectorAll('.photo-slide')];
       if (!photoSlides.length) {
@@ -816,8 +830,22 @@
 
     function showPhoto(index, animateWish = true) {
       if (!photoSlides.length) return;
-      photoIndex = (index + photoSlides.length) % photoSlides.length;
-      photoSlides.forEach((slide, i) => slide.classList.toggle('active', i === photoIndex));
+      const count = photoSlides.length;
+      let next = (index % count + count) % count;
+      // מדלגים על תמונה שעוד לא נטענה (או נכשלה)
+      for (let tries = 0; tries < count; tries++) {
+        const s = photoSlides[next];
+        if (s.dataset.ready || (!s.dataset.failed && count === 1)) break;
+        next = (next + 1) % count;
+      }
+      if (next === photoIndex || !photoSlides[next].dataset.ready) return;
+      const prev = photoSlides[photoIndex];
+      prev.classList.remove('active');
+      prev.classList.add('leaving');
+      window.setTimeout(() => prev.classList.remove('leaving'), 1600);
+      photoSlides[next].classList.remove('leaving');
+      photoSlides[next].classList.add('active');
+      photoIndex = next;
       if (animateWish) showWish(photoIndex);
     }
 
