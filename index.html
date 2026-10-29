@@ -898,7 +898,8 @@
       }
 
       const totalSeconds = Math.floor(diff / 1000);
-      const totalDays = Math.ceil(diff / 86400000);
+      // ימי לוח עד תאריך החתונה (כמו בלוח התכנון), לא עיגול של השעות שנותרו
+      const totalDays = Math.round((Date.UTC(TARGET.getFullYear(), TARGET.getMonth(), TARGET.getDate()) - Date.UTC(now.getFullYear(), now.getMonth(), now.getDate())) / 86400000);
       const hours = Math.floor((totalSeconds % 86400) / 3600);
       const minutes = Math.floor((totalSeconds % 3600) / 60);
       const seconds = totalSeconds % 60;
