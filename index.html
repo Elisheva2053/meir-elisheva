@@ -739,7 +739,7 @@
     <div class="controls" aria-label="כלי שליטה">
       <button class="control-btn" id="musicBtn" type="button" aria-label="הפעלת המנגינה ומעבר לשיר הבא">♫ הפעלת מנגינה</button>
       <button class="control-btn" id="pauseBtn" type="button" aria-label="עצירת המנגינה" disabled>⏸ עצירה</button>
-      <div class="now-playing" id="nowPlaying" aria-live="polite">לחצי על התמונה או על הפעלת מנגינה</div>
+      <div class="now-playing" id="nowPlaying" aria-live="polite">לחץ על התמונה או על הפעלת מנגינה</div>
     </div>
     <audio id="weddingAudio" preload="metadata"></audio>
   </main>
@@ -1079,7 +1079,7 @@
         updateNowPlaying('מתנגן');
         refreshMusicControls();
       }).catch(() => {
-        nowPlaying.textContent = 'הדפדפן חסם את ההפעלה. לחצי שוב על התמונה או על כפתור המנגינה';
+        nowPlaying.textContent = 'הדפדפן חסם את ההפעלה. לחץ שוב על התמונה או על כפתור המנגינה';
         refreshMusicControls();
       });
     }
@@ -1096,7 +1096,7 @@
           updateNowPlaying('מתנגן');
           refreshMusicControls();
         }).catch(() => {
-          nowPlaying.textContent = 'לא ניתן להמשיך את השיר. לחצי שוב';
+          nowPlaying.textContent = 'לא ניתן להמשיך את השיר. לחץ שוב';
         });
       } else {
         weddingAudio.pause();
